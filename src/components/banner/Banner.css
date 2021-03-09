@@ -1,0 +1,14 @@
+.banner {
+    height: 346px;
+    background-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: var(--BannerBackground);
+    border-bottom: 2px solid var(--Orange);
+}
+
+.banner > .logo {
+    height: 100%;
+    vertical-align: middle;
+    margin-top: 26px;
+}

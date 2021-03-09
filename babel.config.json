@@ -1,0 +1,26 @@
+{
+  "presets": [
+    "@babel/typescript",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "last 1 version"
+          ]
+        },
+        "useBuiltIns": "usage",
+        "corejs": "3.0.0",
+        "debug": true
+      }
+    ]
+  ],
+  "plugins": [
+    [ "@babel/plugin-transform-typescript", { "allowDeclareFields": true} ],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/plugin-proposal-class-properties"
+  ],
+  "ignore": [
+    "node_modules/**"
+  ]
+}

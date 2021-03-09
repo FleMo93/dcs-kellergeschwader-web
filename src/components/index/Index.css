@@ -1,0 +1,36 @@
+index {
+    text-align: center;
+}
+
+index h2 {
+    margin-top: 40px;
+}
+
+index .logo {
+    height: 100px;
+}
+
+index .discord-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+index > .server  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    vertical-align: baseline;
+    font-size: 42px;
+    font-weight: bold;    
+}
+
+index .server-logo {
+    margin-right: 10px;
+}
+
+index > .server:hover  {
+    color: var(--TextColor);
+}

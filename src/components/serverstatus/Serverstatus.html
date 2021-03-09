@@ -1,0 +1,30 @@
+<div>
+    <!-- ko foreach: vm.server -->
+        <h2 data-bind="text: $data.name"></h2>
+        <div>
+            <!-- ko if: $data.online === true -->
+                <p>
+                    <b>Online</b><br>
+                    IP address: <b data-bind="text: $data.ipAddress + ':' + $data.port"></b><br>
+                    Mission: <b data-bind="text: $data.mission"></b><br>
+                    Players online: <b data-bind="text: $data.playerCount"></b><br>
+                </p>
+                <!-- ko foreach: $data.moduleGroups -->
+                    <p>
+                        <b data-bind="text: $data.name"></b>
+                        <!-- ko foreach: $data.player -->
+                            <br>
+                            <span class="playerinfo">
+                                <span data-bind="text: $data.name"></span>
+                                <span data-bind="text: $data.onlineString"></span>
+                            </span>
+                        <!-- /ko -->
+                    </p>
+                <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: $data.online === false -->
+                <p>Offline</p>
+            <!-- /ko -->
+        </div>
+    <!-- /ko -->
+</div>

@@ -1,0 +1,19 @@
+.head {
+    position: fixed;
+    top: 0;
+    height: 52px;
+    width: 1052px;
+    background-color: var(--HeaderBackground);
+    font-size: 15px;
+}
+
+.head > a {
+    display: inline;
+    height: 52px;
+    line-height: 52px;
+    white-space: nowrap;
+}
+
+.head > a:not(:last-child) {
+    margin-right: 10px;
+}

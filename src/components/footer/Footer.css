@@ -1,0 +1,16 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: var(--TextColorFooter);
+    margin: 8px;
+    font-size: 12px;
+}
+
+.footer > a {
+    color: var(--TextColorFooter);
+}
+
+.footer > a:hover {
+    color: var(--TextColor);
+}
