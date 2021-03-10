@@ -25,12 +25,3 @@ sed -i "s/%impressum_name%/$IMPRESSUM_NAME/g" dist/Impressum.html
 sed -i "s/%impressum_address%/$IMPRESSUM_ADDRESS/g" dist/Impressum.html
 sed -i "s/%impressum_city%/$IMPRESSUM_CITY/g" dist/Impressum.html
 sed -i "s/%impressum_email%/$IMPRESSUM_EMAIL/g" dist/Impressum.html
-
-HASH="$(git rev-parse HEAD)"
-HTML_HASH="<!-- $HASH -->"
-JS_HASH="//$HASH"
-
-sed -i "1i ${HTML_HASH}" dist/index.html
-for filename in ./dist/*.js; do
-  sed -i "1i ${JS_HASH}" "$filename"
-done
