@@ -13,6 +13,7 @@ interface ServerContent {
   ipAddress: string;
   port: string;
   missionName: string;
+  missionTimeLeft: number;
 }
 
 interface Player {
@@ -39,11 +40,21 @@ export interface Server {
   ipAddress: string;
   port: string;
   mission: string;
+  missionTimeLeft: string;
   playerCount: number;
   moduleGroups: ModuleGroup[];
 }
 
 export class ServerStatus {
+  private static secondsToTimeString(time: number): string {
+    let timeString = Math.floor(time / 60 / 60).toString().padStart(2, '0');
+    timeString += ':' + Math.floor(time / 60 % 60).toString().padStart(2, '0');
+    timeString += ':' + Math.floor(time % 60).toString().padStart(2, '0');
+    timeString += ' h';
+
+    return timeString
+  }
+
   private readonly serverInfos: ObservableArray<ServerInfo> = observableArray();
   public readonly error: Observable<boolean> = observable(false);
   public readonly server: PureComputed<Server[]> = pureComputed({
@@ -61,13 +72,9 @@ export class ServerStatus {
                 };
               }
 
-              let onlineString = Math.floor(p.onlineTime / 60 / 60).toString().padStart(2, '0');
-              onlineString += ':' + Math.floor(p.onlineTime / 60 % 60).toString().padStart(2, '0');
-              onlineString += ':' + Math.floor(p.onlineTime % 60).toString().padStart(2, '0');
-              onlineString += ' h';
               planeGroups[p.role].player.push({
                 name: p.name,
-                onlineString: onlineString
+                onlineString: ServerStatus.secondsToTimeString(p.onlineTime)
               });
             });
           }
@@ -84,7 +91,8 @@ export class ServerStatus {
             port: s.serverStatus ? s.serverStatus.port : '',
             mission: s.serverStatus ? s.serverStatus.missionName : '',
             playerCount: s.serverStatus ? s.serverStatus.players.length : 0,
-            moduleGroups: modules
+            moduleGroups: modules,
+            missionTimeLeft: s.serverStatus ? ServerStatus.secondsToTimeString(s.serverStatus.missionTimeLeft) : ''
           };
 
           return server;
