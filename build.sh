@@ -21,7 +21,7 @@ fi
 
 cp -r public/* dist/
 
-sed -i "s/%impressum_name%/$IMPRESSUM_NAME/g" dist/Impressum.html
-sed -i "s/%impressum_address%/$IMPRESSUM_ADDRESS/g" dist/Impressum.html
-sed -i "s/%impressum_city%/$IMPRESSUM_CITY/g" dist/Impressum.html
-sed -i "s/%impressum_email%/$IMPRESSUM_EMAIL/g" dist/Impressum.html
+sed -i "s/%impressum_name%/$IMPRESSUM_NAME/g" dist/impressum.html
+sed -i "s/%impressum_address%/$IMPRESSUM_ADDRESS/g" dist/impressum.html
+sed -i "s/%impressum_city%/$IMPRESSUM_CITY/g" dist/impressum.html
+sed -i "s/%impressum_email%/$IMPRESSUM_EMAIL/g" dist/impressum.html
