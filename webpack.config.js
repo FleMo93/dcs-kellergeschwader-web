@@ -8,6 +8,7 @@ module.exports = (env, params) => {
       'index': './src/Index.ts',
       'impressum': './src/Impressum.ts',
       'server': './src/Server.ts',
+      'tacview': './src/Tacview.ts',
     },
     devtool: production ? false : 'source-map',
     mode: production ? 'production' : 'developement',

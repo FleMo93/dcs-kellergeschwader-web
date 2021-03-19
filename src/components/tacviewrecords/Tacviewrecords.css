@@ -1,0 +1,69 @@
+.tacviewrecords > * {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tacviewrecords .player-block {
+    text-align: center;
+    display: inline-block;
+}
+
+.tacviewrecords .player-block:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.tacviewrecords .table > div {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--TableBorderColor);
+}
+
+.tacviewrecords .table > .table-header {
+    font-weight: bold;
+}
+
+.tacviewrecords .table > .table-body {
+    border-top-width: 0;
+}
+
+.tacviewrecords .table span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    height: 20px;
+}
+
+.tacviewrecords .table span:nth-child(1) {
+    width: 100px;
+}
+
+.tacviewrecords .table span:nth-child(2) {
+    width: 100px;
+}
+
+.tacviewrecords .table span:nth-child(3) {
+    width: 300px;
+}
+
+.tacviewrecords .table span:nth-child(4) {
+    width: 90px;
+}
+
+.tacviewrecords .download-icon {
+    overflow: hidden;
+}
+
+.tacviewrecords .download-icon:hover * {
+    color: var(--Orange) !important;
+    fill: var(--Orange) !important;
+    stroke: var(--Orange) !important;
+}
+
+.tacviewrecords .table .table-body {
+    overflow-y: scroll;
+    height: 200px;
+}

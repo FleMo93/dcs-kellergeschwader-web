@@ -1,0 +1,35 @@
+<span class="tacviewrecords">
+    <h1>Tacview records</h1>
+    <!-- ko if: vm.listLoading() === true -->
+        Files loading...
+    <!-- /ko -->
+    <!-- ko if: vm.listLoading() === false -->
+        <!-- ko foreach: vm.tacviewPlayers -->
+        <span class="player-block">
+            <h3 data-bind="text: $data.playerName"></h3>
+            <div class="table">
+                <div class="table-header">
+                    <span>Datum</span>
+                    <span>Zeit</span>
+                    <span>Name</span>
+                    <span>Download</span>
+                </div>
+                <div class="table-body">
+                    <!-- ko foreach: tacviewFiles -->
+                    <div>
+                        <span data-bind="text: $data.date"></span>
+                        <span data-bind="text: $data.timeStamp"></span>
+                        <span data-bind="text: $data.missionName"></span>
+                        <span>
+                            <a data-bind="attr: { href: $data.link }">
+                                <svg class="download-icon" width="100%" height="100%" viewBox="0 0 2134 2134" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"><path d="M521.811,1032.29l-375.293,-0l0,552.089l912.942,-0l-537.649,-552.089Zm1089.71,-0l-537.65,552.089l912.942,-0l-0,-552.089l-375.292,-0Z" style="fill:#fff;stroke:#fff;stroke-width:133.33px;"/><g id="Layer1"><rect x="937.5" y="341.988" width="258.333" height="577.456" style="fill:#fff;stroke:#fff;stroke-width:133.33px;"/><path d="M1066.67,1349.54l-542.33,-556.894l1084.66,-0l-542.329,556.894Z" style="fill:#fff;stroke:#fff;stroke-width:66.67px;"/></g></svg>
+                            </a>
+                        </span>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </span>
+        <!-- /ko -->
+    <!-- /ko -->
+</span>
