@@ -9,7 +9,7 @@ interface APITacviewFile {
 
 interface APITacviewPlayer {
     playerName: string;
-    tacviewFiles: APITacviewFile[];
+    tacviewFiles: APITacviewFile[] | null;
 }
 
 class TacviewFile {
@@ -39,9 +39,9 @@ class TacviewPlayer {
 
     constructor(apiTacviewPlayer: APITacviewPlayer) {
         this.playerName = apiTacviewPlayer.playerName;
-        this.tacviewFiles = apiTacviewPlayer.tacviewFiles
-            .sort((a, b) => a.time > b.time ? -1 : 1 )
-            .map((f) => new TacviewFile(f));
+        this.tacviewFiles = (apiTacviewPlayer.tacviewFiles && apiTacviewPlayer.tacviewFiles
+            .sort((a, b) => a.time > b.time ? -1 : 1)
+            .map((f) => new TacviewFile(f))) ?? [];
     }
 }
 
@@ -59,6 +59,7 @@ export class Tacviewrecords {
         const res = await fetch('./api/tacview/index.json');
         const json = await res.json() as APITacviewPlayer[];
         this._tacviewPlayers(json
+            .filter(p => p.tacviewFiles && p.tacviewFiles.length > 0)
             .sort((a, b) => a.playerName > b.playerName ? 1 : -1)
             .map((t) => new TacviewPlayer(t)));
         this.listLoading(false);
