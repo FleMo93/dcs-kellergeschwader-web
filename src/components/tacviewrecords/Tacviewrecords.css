@@ -5,13 +5,26 @@
     transform: translateX(-50%);
 }
 
-.tacviewrecords .player-block {
-    text-align: center;
-    display: inline-block;
+
+.tacviewrecords .player-details {
+    padding-left: 15px;
 }
 
-.tacviewrecords .player-block:not(:last-child) {
-    margin-bottom: 30px;
+.tacviewrecords .date-details > summary,
+.tacviewrecords .player-details > summary {
+    cursor: pointer;
+}
+
+
+.tacviewrecords .date-details > summary:focus,
+.tacviewrecords .player-details > summary:focus {
+    outline-style: none;
+}
+
+.tacviewrecords .player-mission-table {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
 }
 
 .tacviewrecords .table > div {
@@ -28,6 +41,12 @@
     border-top-width: 0;
 }
 
+.tacviewrecords .table > .table-header,
+.tacviewrecords .table > .table-body {
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
 .tacviewrecords .table span {
     display: inline-block;
     white-space: nowrap;
@@ -42,14 +61,10 @@
 }
 
 .tacviewrecords .table span:nth-child(2) {
-    width: 100px;
+    width: 400px;
 }
 
 .tacviewrecords .table span:nth-child(3) {
-    width: 300px;
-}
-
-.tacviewrecords .table span:nth-child(4) {
     width: 90px;
 }
 
@@ -61,9 +76,4 @@
     color: var(--Orange) !important;
     fill: var(--Orange) !important;
     stroke: var(--Orange) !important;
-}
-
-.tacviewrecords .table .table-body {
-    overflow-y: scroll;
-    height: 200px;
 }

@@ -1,4 +1,5 @@
 import { components, Observable, observable, PureComputed, pureComputed } from 'knockout';
+import { getDateString, getTimeString } from '../../helper/DateString';
 
 interface APITacviewFile {
     name: string;
@@ -12,44 +13,35 @@ interface APITacviewPlayer {
     tacviewFiles: APITacviewFile[] | null;
 }
 
-class TacviewFile {
-    public readonly link: string;
-    public readonly missionName: string;
-    public readonly date: string;
-    public readonly timeStamp: string;
-
-    constructor(apiTacviewFile: APITacviewFile) {
-        this.link = apiTacviewFile.link;
-        this.missionName = apiTacviewFile.missionName;
-        const date = new Date(apiTacviewFile.time * 1000)
-
-        this.date = date.getUTCFullYear() + '-' +
-            date.getUTCMonth().toString().padStart(2, '00') + '-' +
-            date.getUTCDate().toString().padEnd(2, '00');
-
-        this.timeStamp = date.getUTCHours() + ':' +
-            date.getUTCMinutes().toString().padEnd(2, '00') + ':' +
-            date.getUTCSeconds().toString().padEnd(2, '00') + ' UTC';
-    }
+interface TacviewFile {
+    name: string;
+    link: string;
+    time: string;
+    missionName: string;
 }
 
-class TacviewPlayer {
-    public readonly playerName: string;
-    public readonly tacviewFiles: TacviewFile[];
+interface TacviewPlayer {
+    name: string;
+    files: TacviewFile[];
+}
 
-    constructor(apiTacviewPlayer: APITacviewPlayer) {
-        this.playerName = apiTacviewPlayer.playerName;
-        this.tacviewFiles = (apiTacviewPlayer.tacviewFiles && apiTacviewPlayer.tacviewFiles
-            .sort((a, b) => a.time > b.time ? -1 : 1)
-            .map((f) => new TacviewFile(f))) ?? [];
-    }
+interface TacviewDay {
+    date: string;
+    players: TacviewPlayer[];
 }
 
 export class Tacviewrecords {
     private readonly listLoading = observable(true);
 
-    private _tacviewPlayers: Observable<TacviewPlayer[]> = observable([]);
-    public tacviewPlayers: PureComputed<TacviewPlayer[]> = pureComputed({ read: this._tacviewPlayers });
+    private _tacviewDays: Observable<TacviewDay[]> = observable([]);
+    public tacviewDays: PureComputed<TacviewDay[]> = pureComputed({
+        read: () => this._tacviewDays()
+            .map((d) => {
+                d.players = d.players.sort((a, b) => a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? 1 : -1);
+                return d;
+            })
+            .sort((a, b) => a.date > b.date ? -1 : 1)
+    });
 
     constructor() {
         this.loadFiles();
@@ -57,11 +49,41 @@ export class Tacviewrecords {
 
     private loadFiles = async (): Promise<void> => {
         const res = await fetch('./api/tacview/index.json');
-        const json = await res.json() as APITacviewPlayer[];
-        this._tacviewPlayers(json
-            .filter(p => p.tacviewFiles && p.tacviewFiles.length > 0)
-            .sort((a, b) => a.playerName > b.playerName ? 1 : -1)
-            .map((t) => new TacviewPlayer(t)));
+        const json: APITacviewPlayer[] = await res.json();
+
+        const filesByDateAndPlayer = json
+            .reduce((a: { [dayKey: string]: TacviewDay }, b) => {
+                if (!b.tacviewFiles || b.tacviewFiles.length === 0) { return a; }
+
+                for (const file of b.tacviewFiles) {
+                    const fileDate = new Date(file.time * 1000)
+                    const dayKey = `${fileDate.getUTCFullYear()}-${fileDate.getUTCMonth()}-${fileDate.getUTCDate()}`;
+                    if (!a[dayKey]) {
+                        a[dayKey] = { date: getDateString(fileDate), players: [] };
+                    }
+
+                    const dayPlayerIndex = a[dayKey].players.findIndex((p) => p.name === b.playerName);
+                    const dayPlayer: TacviewPlayer =
+                        dayPlayerIndex === -1 ?
+                            (() => {
+                                const playerDay: TacviewPlayer = { name: b.playerName, files: [] };
+                                a[dayKey].players.push(playerDay)
+                                return playerDay;
+                            })() :
+                            a[dayKey].players[dayPlayerIndex];
+
+                    dayPlayer.files.push({
+                        link: file.link,
+                        missionName: file.missionName,
+                        name: file.name,
+                        time: getTimeString(fileDate),
+                    });
+                }
+                return a;
+            }, {});
+
+
+        this._tacviewDays(Object.values(filesByDateAndPlayer).map((key) => key));
         this.listLoading(false);
     }
 }

@@ -14,9 +14,9 @@ rm -rf dist
 mkdir -p dist
 
 if [ -z "$COMPILE_STATS" ]; then
-  ./node_modules/.bin/webpack --mode=production --env websiteUrl="$WEBSITE_URL"
+  ./node_modules/.bin/webpack --mode=production
 else
-  ./node_modules/.bin/webpack --mode=production --profile --json > dist/compilation-stats.json --env websiteUrl="$WEBSITE_URL"
+  ./node_modules/.bin/webpack --mode=production --profile --json > dist/compilation-stats.json
 fi
 
 cp -r public/* dist/
