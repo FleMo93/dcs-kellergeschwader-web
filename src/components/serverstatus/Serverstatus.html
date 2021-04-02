@@ -22,6 +22,14 @@
                         <!-- /ko -->
                     </p>
                 <!-- /ko -->
+                <!-- ko if: $data.weather -->
+                    <br>
+                    <b>Aktuelles Wetter</b>
+                    <p data-bind="weatherText: $data.weather"></p>
+                <!-- /ko -->
+                <p><b>Uhrzeit</b><br><!-- ko text: $data.serverTime --><!-- /ko --></p>
+                <br>
+                <p>Last Update: <!-- ko text: $data.lastUpdate --><!-- /ko --></p>
             <!-- /ko -->
             <!-- ko if: $data.online === false -->
                 <p>Offline</p>

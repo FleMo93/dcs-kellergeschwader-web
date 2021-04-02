@@ -1,5 +1,5 @@
 import { components, Observable, observable, PureComputed, pureComputed } from 'knockout';
-import { getDateString, getTimeString } from '../../helper/DateString';
+import { getDateString, getTimeString } from '../../helper/TimeToString';
 
 interface APITacviewFile {
     name: string;
