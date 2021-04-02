@@ -5,10 +5,10 @@
             <!-- ko if: $data.online === true -->
                 <p>
                     <b>Online</b><br>
-                    IP address: <b data-bind="text: $data.ipAddress + ':' + $data.port"></b><br>
+                    IP Addresse: <b data-bind="text: $data.ipAddress + ':' + $data.port"></b><br>
                     Mission: <b data-bind="text: $data.mission"></b><br>
-                    Next mission: <b data-bind="text: $data.missionTimeLeft"></b><br>
-                    Players online: <b data-bind="text: $data.playerCount"></b><br>
+                    Missionsende in: <b data-bind="text: $data.missionTimeLeft"></b><br>
+                    Spieler online: <b data-bind="text: $data.playerCount"></b><br>
                 </p>
                 <!-- ko foreach: $data.moduleGroups -->
                     <p>
