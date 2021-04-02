@@ -5,6 +5,7 @@
     width: 1052px;
     background-color: var(--HeaderBackground);
     font-size: 15px;
+    z-index: 1;
 }
 
 .head > a {
