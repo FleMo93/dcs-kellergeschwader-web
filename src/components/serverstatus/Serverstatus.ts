@@ -1,6 +1,6 @@
 import { bindingHandlers, components, pureComputed, PureComputed } from "knockout";
 import { observable, Observable, observableArray, ObservableArray } from "knockout"
-import { secondsToTime } from "src/helper/TimeToString";
+import { getTimeString, secondsToTime } from "src/helper/TimeToString";
 
 const weatherIconSunny = '&#x2600;';
 const weatherIconPartialCloudy = '&#x1F324;';
@@ -183,7 +183,7 @@ export class ServerStatus {
             moduleGroups: modules,
             missionTimeLeft: s.serverStatus ? ServerStatus.secondsToTimeString(s.serverStatus.missionTimeLeft) : '',
             weather: s.serverStatus ? s.serverStatus.weather : null,
-            serverTime: s.serverStatus ? secondsToTime(s.serverStatus.time) : '',
+            serverTime: s.serverStatus ? getTimeString(new Date(s.serverStatus.time * 1000)) : '',
             lastUpdate: new Date(Date.now()).toUTCString()
           };
 
