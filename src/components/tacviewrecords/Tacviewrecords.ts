@@ -1,17 +1,6 @@
 import { components, Observable, observable, PureComputed, pureComputed } from 'knockout';
+import { getTacviewFiles } from 'src/helper/KellerApiClient';
 import { getDateString, getTimeString } from '../../helper/TimeToString';
-
-interface APITacviewFile {
-    name: string;
-    link: string;
-    time: number;
-    missionName: string;
-}
-
-interface APITacviewPlayer {
-    playerName: string;
-    tacviewFiles: APITacviewFile[] | null;
-}
 
 interface TacviewFile {
     name: string;
@@ -48,10 +37,8 @@ export class Tacviewrecords {
     }
 
     private loadFiles = async (): Promise<void> => {
-        const res = await fetch('./api/tacview/index.json');
-        const json: APITacviewPlayer[] = await res.json();
-
-        const filesByDateAndPlayer = json
+        const res = await getTacviewFiles();
+        const filesByDateAndPlayer = res
             .reduce((a: { [dayKey: string]: TacviewDay }, b) => {
                 if (!b.tacviewFiles || b.tacviewFiles.length === 0) { return a; }
 

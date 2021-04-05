@@ -1,0 +1,21 @@
+<div class="paging-table-wrapper">
+    <span class="paging-table">
+        <div class="paging-table-header">
+            <!-- ko foreach: columns -->
+                <span data-bind="text: $data.name"></span>
+            <!-- /ko -->
+        </div>
+        <!-- ko foreach: values -->
+        <div class=paging-table-row>
+                <!-- ko foreach: $data -->
+                    <span data-bind="text: $data"></span>
+                <!-- /ko -->
+            </div>
+        <!-- /ko -->
+    </span>
+    <div class="paging-table-footer">
+        <span class="paging-table-page">Seite: <!-- ko text: page --><!-- /ko --> / <!-- ko text: pages --><!-- /ko --></span>
+        <a class="paging-table-previous-page" data-bind="click: previousPage" href="javascriptFunction:function(){}">Vorherige</a>
+        <a class="paging-table-next-page" data-bind="click: nextPage" href="javascriptFunction:function(){}">Nächste</a>
+    </div>
+</div>

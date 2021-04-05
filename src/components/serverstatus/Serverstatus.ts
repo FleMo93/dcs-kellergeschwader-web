@@ -1,6 +1,7 @@
 import { bindingHandlers, components, pureComputed, PureComputed } from "knockout";
 import { observable, Observable, observableArray, ObservableArray } from "knockout"
-import { getTimeString, secondsToTime } from "src/helper/TimeToString";
+import { getServers, ServerInfo, Weather } from "src/helper/KellerApiClient";
+import { getTimeString } from "src/helper/TimeToString";
 
 const weatherIconSunny = '&#x2600;';
 const weatherIconPartialCloudy = '&#x1F324;';
@@ -63,57 +64,10 @@ bindingHandlers.weatherText = {
   }
 }
 
-export interface WeatherInfo {
-  speed: number,
-  dir: number
-}
-
-export interface Weather {
-  wind: {
-    at8000: WeatherInfo,
-    at2000: WeatherInfo,
-    atGround: WeatherInfo
-  },
-  season: {
-    temperature: number
-  },
-  clouds: {
-    density: number,
-    base: number,
-    thickness: number,
-    iprecptns: number
-  }
-}
-
-interface ServerContent {
-  players: Player[];
-  ipAddress: string;
-  port: string;
-  missionName: string;
-  missionTimeLeft: number;
-  weather: Weather;
-  time: number;
-}
-
-interface Player {
-  id: number;
-  name: string;
-  role: string;
-  onlineTime: number;
-}
-
-interface ServerInfo {
-  id: string;
-  serverName: string;
-  online: boolean;
-  serverStatus?: ServerContent;
-}
-
 export interface PlayerInfo {
   name: string;
   onlineString: string;
 }
-
 
 export interface ModuleGroup {
   name: string;
@@ -199,14 +153,8 @@ export class ServerStatus {
   private startUpdateIntervall = async (intervall: number): Promise<void> => {
     await (async (): Promise<void> => {
       try {
-        const res = await fetch('/api/servers.json');
-        if (res.ok) {
-          const text = await res.text();
-          const parsed: ServerInfo[] = JSON.parse(text);
-          this.serverInfos(parsed);
-        } else {
-          this.serverInfos.splice(0);
-        }
+        const res = await getServers();
+        this.serverInfos(res);
       } catch (err) {
         console.error(err);
         this.serverInfos.splice(0);

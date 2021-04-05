@@ -1,0 +1,14 @@
+<span class="playerStats">
+    <h1>Spieler-Statistiken (Beta)</h1>
+    <h3>Spielzeiten</h3>
+    <!-- ko if: vm.loading() == false -->
+        <pagingtable params="{
+            columns: [
+                { name: 'Name', values: vm.playerTimes().map((t) => t.name) },
+                { name: 'Zeit', values: vm.playerTimes().map((t) => t.time) },
+            ],
+            itemsPerPage: 20
+        }">
+        </pagingtable>
+    <!-- /ko -->
+</span>

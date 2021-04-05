@@ -1,0 +1,43 @@
+.paging-table-wrapper .paging-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--TableBorderColor);
+}
+
+.paging-table-wrapper .paging-table-header {
+    border-bottom:  1px solid var(--TableBorderColor);
+}
+
+.paging-table-wrapper .paging-table-row,
+.paging-table-wrapper .paging-table-header {
+    display: flex;
+}
+
+.paging-table-wrapper .paging-table-row:nth-child(2n + 0) {
+    background-color: var(--TableRowSecondBackgroundColor);
+}
+
+.paging-table-wrapper .paging-table-row > *:not(:last-child),
+.paging-table-wrapper .paging-table-header > *:not(:last-child) {
+    border-right: 1px solid var(--TableBorderColor);
+}
+
+.paging-table-wrapper .paging-table-row > span,
+.paging-table-wrapper .paging-table-header > span {
+    flex: 1;
+    padding: 2px 2px 2px 4px;
+}
+
+.paging-table-wrapper .paging-table-footer {
+    display: flex;
+    flex-direction: row;
+}
+
+.paging-table-wrapper .paging-table-page {
+    flex: 1;
+}
+
+.paging-table-wrapper .paging-table-previous-page,
+.paging-table-wrapper .paging-table-next-page {
+    margin-left: 4px;
+}
