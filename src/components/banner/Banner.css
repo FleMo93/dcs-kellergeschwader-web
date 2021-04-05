@@ -1,5 +1,5 @@
 .banner {
-    height: 346px;
+    height: 438px;
     background-blend-mode: multiply;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -8,7 +8,9 @@
 }
 
 .banner > .logo {
-    height: 100%;
-    vertical-align: middle;
-    margin-top: 26px;
+    height: 350px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 60px;
 }
