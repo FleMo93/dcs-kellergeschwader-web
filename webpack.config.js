@@ -9,6 +9,7 @@ module.exports = (env, params) => {
       'impressum': './src/Impressum.ts',
       'server': './src/Server.ts',
       'tacview': './src/Tacview.ts',
+      'statistics': './src/Statistics.ts',
     },
     devtool: production ? false : 'source-map',
     mode: production ? 'production' : 'developement',
@@ -74,7 +75,7 @@ module.exports = (env, params) => {
       },
       proxy: {
         '/api': {
-          target: 'http://localhost:8080',
+          target: 'http://localhost:8080/',
         }
       },
       port: 8081,
